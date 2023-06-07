@@ -1,20 +1,29 @@
-import express from "express";
 import UserService from "./userService";
 
-const router = express.Router();
+import { User, UserData } from "./userData";
+import { Get, Post, Path, Route, Body } from "tsoa";
 
-export default class UserController {
+@Route("users")
+export class UserController {
   service: UserService;
 
   constructor() {
     this.service = new UserService();
   }
 
-  routes() {
-    router.get("/", this.service.getAllUsers.bind(this.service));
-    router.get("/user", this.service.getUser.bind(this.service));
-    router.post("/create", this.service.createUser.bind(this.service));
+  @Get("/")
+  public async getAllUsers(): Promise<UserData> {
+    return this.service.getAllUsers();
+  }
 
-    return router;
+  @Get("{userId}")
+  public async getUser(@Path() userId: string): Promise<User> {
+    return this.service.getUser(userId);
+  }
+
+  @Post("/create")
+  public async createUser(@Body() requestBody: User): Promise<User> {
+    console.log(requestBody);
+    return this.service.createUser(requestBody);
   }
 }
