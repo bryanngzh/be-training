@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import { RegisterRoutes } from "./build/routes";
+import cors from "cors";
 
 // create express application
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.json()); // Parse JSON-encoded bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(logMiddleware);
 app.use(errorMiddleware);
+app.use(cors()); // Allow FE connection to your BE
 
 // routes
 RegisterRoutes(app);

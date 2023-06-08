@@ -4,9 +4,11 @@
   "controllerPathGlobs": ["src/**/*Controller.ts"],
   "spec": {
     "outputDirectory": "build",
-    "specVersion": 3
+    "specVersion": 3,
+    "securityDefinitions": {}
   },
   "routes": {
-    "routesDir": "src/build"
+    "routesDir": "src",
+    "authenticationModule": "src/auth/auth.ts"
   }
 }
