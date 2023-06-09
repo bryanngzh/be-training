@@ -1,15 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
-import { RegisterRoutes } from "./build/routes";
+import { RegisterRoutes } from "./routes";
 import cors from "cors";
+import morgan from "morgan";
 
 // create express application
 const app = express();
 
 // custom middleware
-const logMiddleware = (req: Request, _res: Response, next: NextFunction) => {
-  console.log(`[${req.method}] ${req.url}`);
-  next(); // call next so the next middleware can run
-};
+// const logMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+//   console.log(`[${req.method}] ${req.url}`);
+//   next(); // call next so the next middleware can run
+// };
 
 const errorMiddleware = (
   err: Error,
@@ -25,7 +26,8 @@ const errorMiddleware = (
 // Mainly for POST requests
 app.use(express.json()); // Parse JSON-encoded bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(logMiddleware);
+// app.use(logMiddleware);
+app.use(morgan("dev"));
 app.use(errorMiddleware);
 app.use(cors()); // Allow FE connection to your BE
 

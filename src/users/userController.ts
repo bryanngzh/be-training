@@ -1,7 +1,7 @@
 import UserService from "./userService";
 
 import { User, UserData } from "./userData";
-import { Get, Post, Path, Route, Body } from "tsoa";
+import { Get, Post, Path, Route, Body, Security } from "tsoa";
 
 @Route("users")
 export class UserController {
@@ -11,6 +11,7 @@ export class UserController {
     this.service = new UserService();
   }
 
+  @Security("jwt")
   @Get("/")
   public async getAllUsers(): Promise<UserData> {
     return this.service.getAllUsers();

@@ -5,7 +5,13 @@
   "spec": {
     "outputDirectory": "build",
     "specVersion": 3,
-    "securityDefinitions": {}
+    "securityDefinitions": {
+      "jwt": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
   },
   "routes": {
     "routesDir": "src",
